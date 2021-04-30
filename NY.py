@@ -66,7 +66,7 @@ st.subheader('Выберите время')
 time=st.slider('Время', value=0, min_value=0, max_value=23)
 
 f_date=date+f' {time}:00'
-st.title('Спрос на поездки в Нью-Йоркe'+\
+st.title('Спрос на такси в Нью-Йоркe'+\
          f' {date} в {time}:00')
 
 data2 = pd.read_csv('Taxi.4.csv', index_col=0, parse_dates=True)
