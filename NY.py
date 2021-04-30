@@ -96,7 +96,6 @@ for i, S in new.iterrows():
 new2=new.loc[l][['lat', 'lon']]
         
 st.subheader('--')
-st.subheader('--')
 st.write(pdk.Deck(
     map_style="mapbox://styles/mapbox/light-v9",
     initial_view_state={
