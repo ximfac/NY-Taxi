@@ -41,11 +41,11 @@ st.write(long, lat)
 st.subheader('Расположение зоны на карте')
 
 st.write(pdk.Deck(
-    map_style="mapbox://styles/mapbox/streets-v11",
+    map_style="mapbox://styles/mapbox/light-v10",
     initial_view_state={
         "latitude": lat,
         "longitude": long,
-        "zoom": 10,
+        "zoom": 12,
         "pitch": 50,
     },
     layers=[
