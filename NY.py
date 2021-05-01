@@ -43,8 +43,8 @@ st.subheader('Расположение зоны на карте')
 st.write(pdk.Deck(
     map_style="mapbox://styles/mapbox/streets-v11",
     initial_view_state={
-        "latitude": long,
-        "longitude": lat,
+        "latitude": lat,
+        "longitude": long,
         "zoom": 10,
         "pitch": 50,
     },
