@@ -33,8 +33,8 @@ reg['lat']=(reg.iloc[:,2]+reg.iloc[:,3])/2
 
 reg3=reg[['lon', 'lat']]
 
-long=reg3.lon.values[0]
-lat=reg3.lat.values[0]
+long=np.round(reg3.lon.values[0], 3)
+lat=np.round(reg3.lat.values[0], 3)
 
 st.write(long, lat)
 
