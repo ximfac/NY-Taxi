@@ -36,8 +36,6 @@ reg3=reg[['lon', 'lat']]
 long=np.round(reg3.lon.values[0], 3)
 lat=np.round(reg3.lat.values[0], 3)
 
-st.write(long, lat)
-
 st.subheader('Расположение зоны на карте')
 
 st.write(pdk.Deck(
