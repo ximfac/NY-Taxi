@@ -28,6 +28,35 @@ reg['avg_trips']=data[['y']][data.zone==zone].loc[f'{date}'].mean()[0]
 st.subheader(f'Координаты {zone} зоны и среднее количество поездок в час {date}')    
 st.write(reg)
 
+reg['lon']=(reg.iloc[:,0]+reg.iloc[:,1])/2
+reg['lat']=(reg.iloc[:,2]+reg.iloc[:,3])/2
+
+reg3=reg[['lon', 'lat']]
+
+st.subheader('Расположение зоны на карте')
+
+st.write(pdk.Deck(
+    map_style="mapbox://styles/mapbox/light-v9",
+    initial_view_state={
+        "latitude": 40.78,
+        "longitude": -73.95,
+        "zoom": 9.8,
+        "pitch": 50,
+    },
+    layers=[
+        pdk.Layer(
+            "HexagonLayer",
+            data=reg3,
+            get_position=["lon", "lat"],
+            radius=300,
+            elevation_scale=4,
+            elevation_range=[0, 2000],
+            pickable=False,
+            extruded=True,
+        ),
+    ]
+))
+ 
 cols=st.beta_columns(2)
 with cols[0]:
     st.subheader(f'Поездки из зоны {zone}')
