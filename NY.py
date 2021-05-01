@@ -33,14 +33,17 @@ reg['lat']=(reg.iloc[:,2]+reg.iloc[:,3])/2
 
 reg3=reg[['lon', 'lat']]
 
+long=reg3.lon[0]
+lat=reg3.lat[0]
+
 st.subheader('Расположение зоны на карте')
 
 st.write(pdk.Deck(
-    map_style="mapbox://styles/mapbox/light-v10",
+    map_style="mapbox://styles/mapbox/streets-v11",
     initial_view_state={
-        "latitude": 40.78,
-        "longitude": -73.95,
-        "zoom": 9.8,
+        "latitude": long,
+        "longitude": lat,
+        "zoom": 12,
         "pitch": 50,
     },
     layers=[
