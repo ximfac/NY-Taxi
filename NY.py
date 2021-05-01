@@ -48,7 +48,7 @@ st.write(pdk.Deck(
     },
     layers=[
         pdk.Layer(
-            "HexagonLayer",
+            "SquareLayer",
             data=reg3,
             get_position=["lon", "lat"],
             radius=300,
