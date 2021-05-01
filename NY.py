@@ -36,7 +36,7 @@ reg3=reg[['lon', 'lat']]
 st.subheader('Расположение зоны на карте')
 
 st.write(pdk.Deck(
-    map_style="mapbox://styles/mapbox/streets-v11",
+    map_style="mapbox://styles/mapbox/light-v10",
     initial_view_state={
         "latitude": 40.78,
         "longitude": -73.95,
