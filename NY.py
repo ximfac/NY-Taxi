@@ -15,18 +15,18 @@ regions=pd.read_csv('regions.csv', sep=';')
 regions.index=regions.region
 regions.drop(['region'], axis=1, inplace=True)
 with colss[0]:
-    st.subheader('Выберите зону')
-    zone=st.selectbox('Зона', np.unique(data.zone.values))
+    zone=st.sidebar.selectbox('Зона', np.unique(data.zone.values))
 with colss[1]:
-    st.subheader('Выберите дату')
-    date=st.selectbox('Дата', dates)
+    date=st.sidebar.selectbox('Дата', dates)
     
 reg=regions[regions.index==zone]
 
 reg['avg_trips']=data[['y']][data.zone==zone].loc[f'{date}'].mean()[0]
+reg['preds']=data[['preds']][data.zone==zone].loc[f'{date}'].mean()[0]
 
 st.subheader(f'Координаты {zone} зоны и среднее количество поездок в час {date}')    
 st.write(reg)
+
 
 reg['lon']=(reg.iloc[:,0]+reg.iloc[:,1])/2
 reg['lat']=(reg.iloc[:,2]+reg.iloc[:,3])/2
@@ -57,28 +57,20 @@ st.write(pdk.Deck(
     ]
 ))
  
-cols=st.beta_columns(2)
-with cols[0]:
-    st.subheader(f'Поездки из зоны {zone}')
-    DF=pd.DataFrame(data=data[['y']][data.zone==zone].loc[f'{date}'].values,
-                    index=data[['y']][data.zone==zone].loc[f'{date}'].index.strftime('%F %H:%M'),
-                    columns=[f'{zone}'])
-    st.write(DF)
-    
-with cols[1]:
-    st.subheader(f'Прогноз поездок из {zone}')
-    DF1=pd.DataFrame(data=data[['preds']][data.zone==zone].loc[f'{date}'].values,
-                    index=data[['preds']][data.zone==zone].loc[f'{date}'].index.strftime('%F %H:%M'),
-                    columns=[f'{zone}'])
-    st.write(DF1)
 
+st.subheader(f'Поездки из зоны {zone}')
+DF=pd.DataFrame(data=data[['y', 'preds']][data.zone==zone].loc[f'{date}'].values,
+                index=data[['y']][data.zone==zone].loc[f'{date}'].index.strftime('%F %H:%M'),
+                columns=['True', 'Preds'])
+st.write(DF)
+    
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=DF.index,
                          y=DF.iloc[:,0],
                          name='True',
                          line={'color':'blue'}))
-fig.add_trace(go.Scatter(x=DF1.index,
-                         y=DF1.iloc[:,0],
+fig.add_trace(go.Scatter(x=DF.index,
+                         y=DF.iloc[:,1],
                 name='Predictions',
                 line={'color':'green'}))
 
@@ -90,9 +82,7 @@ cols2=st.beta_columns(1)
 with cols2[0]:
     st.plotly_chart(fig)
     
-
-st.subheader('Выберите время')
-time=st.slider('Время', value=0, min_value=0, max_value=23)
+time=st.sidebar.slider('Время', value=0, min_value=0, max_value=23)
 
 f_date=date+f' {time}:00'
 st.title('Поездки такси'+\
@@ -146,4 +136,3 @@ st.write(pdk.Deck(
         ),
     ]
 ))
-
