@@ -43,7 +43,7 @@ st.write(pdk.Deck(
     initial_view_state={
         "latitude": long,
         "longitude": lat,
-        "zoom": 12,
+        "zoom": 10,
         "pitch": 50,
     },
     layers=[
